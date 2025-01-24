@@ -136,8 +136,45 @@ void terminal_writestring(const char* data)
 	terminal_write(data, strlen(data));
 }
 
+void copyright_text()
+{
+    // Strings to display
+    const char* left_text = "IPO_OS.";
+    const char* right_text = "Created by IPOleksenko.";
+    
+    // Calculate padding spaces
+    size_t left_text_len = strlen(left_text);
+    size_t right_text_len = strlen(right_text);
+    size_t padding = VGA_WIDTH - left_text_len - right_text_len;
+
+    // Save the original color to restore later
+    uint8_t original_color = terminal_color;
+
+    // Set custom color for header
+    terminal_setcolor(vga_entry_color(VGA_COLOR_LIGHT_GREEN, VGA_COLOR_BLACK));
+
+    // Write left-aligned text, padding, and right-aligned text in one line
+    terminal_writestring(left_text);
+    for (size_t i = 0; i < padding; i++) {
+        terminal_putchar(' ');
+    }
+    terminal_writestring(right_text);
+
+    // Restore original color
+    terminal_setcolor(original_color);
+    terminal_writestring("\n");
+}
+
 void kernel_main(void) 
 {
-	terminal_initialize();
-	terminal_writestring("IPO_OS!\n");
+    terminal_initialize();
+    copyright_text();
+
+    // test text
+    terminal_writestring("Hello, World!\n");
+    terminal_writestring("Hello, World!\n");
+    terminal_writestring("Hello, World!\n");
+    terminal_writestring("Hello, World!\n");
 }
+
+
