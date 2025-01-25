@@ -9,16 +9,17 @@
 #include "include/vga.h"
 #include "include/string.h"
 #include "include/terminal.h"
+#include "include/keyboard.h"
+#include "include/commands.h"
 
 void kernel_main(void) 
 {
     terminal_initialize();
     copyright_text();
-
-    // test text
-    terminal_writestring("Hello, World!\n");
-    terminal_writestring("Hello, World!\n");
-    terminal_writestring("Hello, World!\n");
-    terminal_writestring("Hello, World!\n");
+    
+while (1) {
+        handle_command(keyboard_input());
+    }
 }
+
 
