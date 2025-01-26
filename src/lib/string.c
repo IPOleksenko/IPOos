@@ -1,5 +1,6 @@
-#include "include/string.h"
 #include <stddef.h>
+
+#include "include/string.h"
 
 size_t strlen(const char* str) 
 {

@@ -8,7 +8,7 @@ clean:
 # Build the project using build.sh
 build:
 	@echo "Starting build through build.sh..."
-	@./build.sh
+	@./tools/build.sh
 
 # Run in QEMU
 run:
