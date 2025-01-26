@@ -21,7 +21,10 @@ void handle_command(const char* command) {
 
     if (strcmp(command, "exit") == 0) {
         shutdown_system(); // Calling the shutdown function
-    } else {
+    }else if (strcmp(command, "clean") == 0){
+        terminal_clear();
+    } 
+    else {
         terminal_writestring("Unknown command.\n");
     }
 }

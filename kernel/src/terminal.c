@@ -1,4 +1,5 @@
 #include "include/terminal.h"
+#include "include/keyboard.h"
 
 void terminal_initialize(void) 
 {
@@ -12,6 +13,17 @@ void terminal_initialize(void)
 			terminal_buffer[index] = vga_entry(' ', terminal_color);
 		}
 	}
+}
+
+void terminal_clear(void) 
+{
+    for (size_t y = 0; y < VGA_HEIGHT; y++) {
+        for (size_t x = 0; x < VGA_WIDTH; x++) {
+            terminal_putentryat(' ', terminal_color, x, y);
+        }
+    }
+    terminal_row = 0;
+    terminal_column = 0;
 }
 
 void terminal_setcolor(uint8_t color) 
@@ -31,13 +43,13 @@ void terminal_putchar(char c)
         case '\n': // Newline
             terminal_column = 0;
             if (++terminal_row == VGA_HEIGHT)
-                terminal_row = 0; // Reset to the top if the screen end is reached
+                terminal_row = 0; // Reset to the top if the end of the screen is reached
             break;
         case '\r': // Carriage return
             terminal_column = 0;
             break;
         case '\t': { // Tab
-            size_t tab_size = 4; // Number of spaces for a tab
+            size_t tab_size = 4; // Tab size
             size_t next_tab_stop = (terminal_column + tab_size) & ~(tab_size - 1);
             while (terminal_column < next_tab_stop) {
                 terminal_putentryat(' ', terminal_color, terminal_column, terminal_row);
@@ -68,6 +80,8 @@ void terminal_putchar(char c)
             }
             break;
     }
+    // Update the hardware cursor
+    set_cursor_position(terminal_row * VGA_WIDTH + terminal_column);
 }
 
 void terminal_write(const char* data, size_t size) 
