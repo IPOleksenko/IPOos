@@ -1,5 +1,5 @@
+#include <stdbool.h>
 #include <stdint.h>
-
 #include "include/keyboard.h"
 #include "include/terminal.h"
 #include "include/io.h"
@@ -15,9 +15,10 @@ void set_cursor_position(uint16_t position) {
 char* keyboard_input() {
     static char input_buffer[256];
     size_t buffer_index = 0;
+    bool shift_pressed = false;
 
     terminal_writestring("\n> ");
-    while (1) {        
+    while (1) {
         // Wait until the keyboard controller is ready
         if (!(inb(0x64) & 0x1)) {
             continue;
@@ -25,20 +26,31 @@ char* keyboard_input() {
 
         uint8_t scancode = inb(0x60); // Read the scancode
 
-        // Ignore break codes (scancode >= 0x80)
+        // Check for key release (break code)
         if (scancode & 0x80) {
+            uint8_t key_released = scancode & 0x7F; // Get the make code
+            if (key_released == 0x2A || key_released == 0x36) { // Left or Right Shift released
+                shift_pressed = false;
+            }
             continue;
         }
 
-        char key = keymap[scancode];
+        // Check for key press
+        if (scancode == 0x2A || scancode == 0x36) { // Left or Right Shift pressed
+            shift_pressed = true;
+            continue;
+        }
+
+        const char* current_keymap = get_keymap(shift_pressed);
+        char key = current_keymap[scancode];
 
         switch (key) {
             case '\n': // Enter
-                if (buffer_index > 0){
+                if (buffer_index > 0) {
                     input_buffer[buffer_index] = '\0';
                     terminal_putchar('\n');
                     return input_buffer;
-                    }
+                }
                 break;
 
             case '\b': // Backspace
@@ -65,7 +77,6 @@ char* keyboard_input() {
                     }
                 }
                 break;
-        
 
             default: // Regular character
                 if (key && buffer_index < sizeof(input_buffer) - 1) {
