@@ -5,13 +5,6 @@
 #include "include/io.h"
 #include "include/keymap.h"
 
-void set_cursor_position(uint16_t position) {
-    outb(0x3D4, 0x0F); 
-    outb(0x3D5, (uint8_t)(position & 0xFF));
-    outb(0x3D4, 0x0E); 
-    outb(0x3D5, (uint8_t)((position >> 8) & 0xFF));
-}
-
 char* keyboard_input() {
     static char input_buffer[256];
     size_t buffer_index = 0;
