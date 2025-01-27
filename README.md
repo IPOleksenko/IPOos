@@ -2,7 +2,12 @@
 
 ## ⚙️ Compilation Commands
 
-### 🪩 Clean the Build Directory
+### 🪩 To install all the necessary dependencies, run
+```bash
+./tools/install.sh
+```
+
+### 🧹 Clean the Build Directory
 ```bash
 sudo make clean
 ```

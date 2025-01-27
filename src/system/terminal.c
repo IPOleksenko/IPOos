@@ -2,6 +2,11 @@
 #include "include/keyboard.h"
 #include "include/io.h"
 
+size_t terminal_row = 0;
+size_t terminal_column = 0;
+uint8_t terminal_color = 0;
+uint16_t* terminal_buffer = NULL;
+
 void scroll_terminal(void)
 {
     // Move each row of the buffer up by one
