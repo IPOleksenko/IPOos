@@ -1,7 +1,5 @@
 #include "include/main.h"
-#include "include/vga.h"
-#include "include/string.h"
-#include "include/terminal.h"
+
 #include "include/keyboard.h"
 #include "include/handle_command.h"
 

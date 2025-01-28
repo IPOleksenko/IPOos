@@ -1,8 +1,9 @@
 #include <stdbool.h>
 #include <stdint.h>
+
 #include "include/keyboard.h"
 #include "include/terminal.h"
-#include "include/io.h"
+#include "include/ioports.h"
 #include "include/keymap.h"
 
 char* keyboard_input() {

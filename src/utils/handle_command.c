@@ -1,6 +1,6 @@
 #include "include/handle_command.h"
 #include "include/terminal.h"
-#include "include/io.h"
+#include "include/ioports.h"
 
 void shutdown_system() {
     terminal_writestring("Shutting down...\n");

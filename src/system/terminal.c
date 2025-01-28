@@ -1,6 +1,6 @@
 #include "include/terminal.h"
 #include "include/keyboard.h"
-#include "include/io.h"
+#include "include/ioports.h"
 
 size_t terminal_row = 0;
 size_t terminal_column = 0;
