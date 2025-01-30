@@ -2,6 +2,6 @@
 #define COMMANDS_H
 
 void shutdown_system();
-void handle_command (const char* command);
+void handle_command (char* command);
 
 #endif

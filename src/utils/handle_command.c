@@ -1,30 +1,58 @@
+#include <ctype.h>
+#include <string.h>
+
 #include "include/handle_command.h"
 #include "include/terminal.h"
 #include "include/ioports.h"
 
 void shutdown_system() {
     terminal_writestring("Shutting down...\n");
-
-    // Disabling through ACPI
-    outw(0x604, 0x2000); // Example command for ACPI (port and data may vary)
+    outw(0x604, 0x2000); // ACPI shutdown
 }
 
-void handle_command(const char* command) {
+// Function to remove extra spaces
+void trim_spaces(char* str) {
+    char* dst = str;
+    char* src = str;
+    
+    // Skip leading spaces
+    while (isspace((unsigned char)*src)) src++;
+    
+    while (*src) {
+        if (isspace((unsigned char)*src)) {
+            // Replace a sequence of spaces with a single space
+            *dst++ = ' ';
+            while (isspace((unsigned char)*src)) src++;
+        } else {
+            *dst++ = *src++;
+        }
+    }
+    
+    // Removing trailing spaces
+    if (dst > str && isspace((unsigned char)dst[-1])) {
+        dst--;
+    }
+    *dst = '\0';
+}
+
+void handle_command(char* command) {
     if (!command || *command == '\0') {
         terminal_writestring("No command entered.\n");
         return;
     }
 
-    terminal_writestring("You entered: ");
-    terminal_writestring(command);
-    terminal_putchar('\n');
+    if (strcmp(command, "help") == 0){
+        terminal_writestring("Available commands:\n");
+        terminal_writestring("  help   - Show this help message\n");
+        terminal_writestring("  clean  - Clear the terminal screen\n");
+        terminal_writestring("  exit   - Exit the system\n");
 
-    if (strcmp(command, "exit") == 0) {
-        shutdown_system(); // Calling the shutdown function
-    }else if (strcmp(command, "clean") == 0){
+    } else if (strcmp(command, "clean") == 0) {
         terminal_clear();
-    } 
-    else {
+    } else if (strcmp(command, "exit") == 0) {
+        shutdown_system();
+    } else {
+        trim_spaces(command);
         terminal_writestring("Unknown command.\n");
     }
 }
