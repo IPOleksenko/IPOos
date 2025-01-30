@@ -41,6 +41,8 @@ void handle_command(char* command) {
         return;
     }
 
+    trim_spaces(command);   
+
     if (strcmp(command, "help") == 0){
         terminal_writestring("Available commands:\n");
         terminal_writestring("  help   - Show this help message\n");
@@ -49,10 +51,11 @@ void handle_command(char* command) {
 
     } else if (strcmp(command, "clean") == 0) {
         terminal_clear();
+
     } else if (strcmp(command, "exit") == 0) {
         shutdown_system();
+        
     } else {
-        trim_spaces(command);
         terminal_writestring("Unknown command.\n");
     }
 }
