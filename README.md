@@ -4,29 +4,24 @@
 
 ### 🪩 To install all the necessary dependencies, run
 ```bash
-./tools/install.sh
+./install-dependencies.sh
+export PATH=~/opt/cross/bin:$PATH
 ```
 
 ### 🧹 Clean the Build Directory
 ```bash
-sudo make clean
+./clean.sh
 ```
 
 ### 🔧 Build the Project
 ```bash
-sudo -E make build
+./build.sh
 ```
 
-### ▶️ Run the Project
+### ▶️ Run the project in QEMU
 ```bash
-sudo make run
+./gemu
 ```
-
-### ⚒️ Clean, Build and Run (All-in-One)
-```bash
-sudo -E make
-```
-
 
 ## 🧑‍💻 Authors
 
