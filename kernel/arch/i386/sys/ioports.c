@@ -19,3 +19,11 @@ void outb(uint16_t port, uint8_t value) {
 void outw(uint16_t port, uint16_t value) {
     __asm__ volatile ("outw %0, %1" : : "a"(value), "Nd"(port));
 }
+
+void irq_disable() {
+    __asm__ volatile( "cli" );
+}
+
+void irq_enable() {
+    __asm__ volatile( "sti" );
+}

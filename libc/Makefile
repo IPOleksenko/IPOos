@@ -71,6 +71,29 @@ string/strtol.o \
 string/strchr.o \
 string/strncmp.o \
 string/bzero.o \
+stdlib/calloc.o \
+stdlib/abort.o \
+stdlib/reverseString.o \
+stdlib/reverse.o \
+stdlib/itoa.o \
+stdlib/free.o \
+stdlib/realloc.o \
+stdlib/ftoa.o \
+stdlib/lftoa.o \
+stdlib/lltoa.o \
+stdlib/lutoa.o \
+stdlib/llutoa.o \
+stdlib/ltoa.o \
+stdlib/dtoa.o \
+stdlib/utoa.o \
+stdlib/etoa.o \
+stdlib/gtoa.o \
+stdlib/intToStr.o \
+stdlib/malloc.o \
+stdlib/strtoul.o \
+stdlib/strtoull.o \
+stdlib/srand.o \
+stdlib/rand.o \
 
 HOSTEDOBJS=\
 $(ARCH_HOSTEDOBJS) \
