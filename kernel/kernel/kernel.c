@@ -23,13 +23,14 @@ extern size_t heap_size;
 
 void kernel_main(__attribute__((unused)) multiboot_info_t* multiboot_info) {
 	terminal_initialize();
-    copyright_text();
+    
     // Calculating the heap size
     size_t heap_size = calculate_heap_size(multiboot_info);
 
     // Initializing the heap
     kheap_init((void*)HEAP_START_ADDRESS, heap_size);
-
+    
+    copyright_text();
 
     irq_disable();
     
